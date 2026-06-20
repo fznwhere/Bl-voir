@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blüvoir POS & Inventory</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#B5C7EB">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3004/3004613.png">
     <!-- Import Font Satoshi -->
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
     <!-- Script untuk Grafik -->
@@ -691,6 +694,17 @@
 
     renderGudang();
 </script>
-
+<script>
+        // Memanggil Service Worker biar aplikasi stabil dan bisa di-download
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').then(reg => {
+                    console.log('Service Worker sukses jalan!', reg.scope);
+                }).catch(err => {
+                    console.log('Service Worker gagal:', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
