@@ -1,0 +1,17 @@
+{
+  "name": "Blüvoir POS & Inventory",
+  "short_name": "Blüvoir",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F0F4FA",
+  "theme_color": "#B5C7EB",
+  "description": "Sistem Kasir & Gudang Blüvoir",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3004/3004613.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
