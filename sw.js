@@ -1,26 +1,17 @@
-const CACHE_NAME = 'bluvoir-v1';
-const urlsToCache = [
-  './',
-  './index.html',
-  './manifest.json'
-];
+const CACHE_NAME = 'bluvoir-v2';
+const urlsToCache = ['./', './index.html', './manifest.json'];
 
-// Install Service Worker & Simpan Cache
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(urlsToCache);
-      })
-  );
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
 });
 
-// Gunakan Cache saat offline biar stabil
+// Strategi: Jaringan dulu, kalau offline baru pakai Cache
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        return response || fetch(event.request);
-      })
+    fetch(event.request).then(response => {
+        const resClone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, resClone));
+        return response;
+    }).catch(() => caches.match(event.request))
   );
 });
