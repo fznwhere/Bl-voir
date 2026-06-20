@@ -7,36 +7,17 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#B5C7EB">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3004/3004613.png">
-    <!-- Import Font Satoshi -->
+    
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
-    <!-- Script untuk Grafik -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root {
-            --primary: #B5C7EB; 
-            --secondary: #5D83C5; 
-            --bg: #F0F4FA; 
-            --text: #333; 
-            --white: #ffffff;
-        }
-        body {
-            /* Font Utama: Satoshi */
-            font-family: 'Satoshi', sans-serif;
-            font-weight: 400; /* Regular */
-            background-color: var(--bg); color: var(--text);
-            margin: 0; padding: 20px; display: flex; justify-content: center;
-        }
-        .container {
-            background: var(--white); padding: 20px; border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 600px; width: 100%;
-        }
+        :root { --primary: #B5C7EB; --secondary: #5D83C5; --bg: #F0F4FA; --text: #333; --white: #ffffff; }
+        body { font-family: 'Satoshi', sans-serif; font-weight: 400; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { background: var(--white); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 600px; width: 100%; }
         h2 { color: var(--secondary); text-align: center; margin-top: 0; margin-bottom: 20px; letter-spacing: 1px; font-weight: 700;}
         
         .tabs { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; overflow-x: auto;}
-        .tab-btn {
-            flex: 1; padding: 10px 5px; background: transparent; border: none; min-width: 80px;
-            color: #888; font-weight: 700; cursor: pointer; border-radius: 8px; transition: 0.3s; font-size: 13px; font-family: 'Satoshi', sans-serif;
-        }
+        .tab-btn { flex: 1; padding: 10px 5px; background: transparent; border: none; min-width: 80px; color: #888; font-weight: 700; cursor: pointer; border-radius: 8px; transition: 0.3s; font-size: 13px; font-family: 'Satoshi', sans-serif; }
         .tab-btn.active { background: var(--secondary); color: white; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
@@ -54,7 +35,6 @@
         .btn-action:hover { background: #4A6DAA; }
         .btn-small { background: var(--primary); color: white; border: none; border-radius: 6px; padding: 6px 12px; font-weight: 700; cursor: pointer; color: #333; font-family: 'Satoshi', sans-serif;}
         
-        /* KATALOG */
         .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px;}
         .catalog-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border: 1px solid #cddaf1; position: relative; display: flex; flex-direction: column;}
         .catalog-img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: #eaf0f9; display: block; border-bottom: 1px solid #eee;}
@@ -63,7 +43,6 @@
         .catalog-price { font-size: 12px; color: #666; margin-bottom: 8px; flex-grow: 1; font-weight: 500;}
         .catalog-stock { font-weight: 700; font-size: 12px; color: #5D83C5; background: #e8f4f8; padding: 4px 8px; border-radius: 6px; text-align: center;}
         
-        /* FLIP CARD */
         .flip-card { background-color: transparent; perspective: 1000px; cursor: pointer; display: flex; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border: 1px solid #cddaf1; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
@@ -79,7 +58,6 @@
         .result-total { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--primary); font-weight: 700; font-size: 16px; color: var(--secondary);}
         .text-rupiah { font-weight: 700; color: var(--secondary);}
         
-        /* DASHBOARD SUMMARY & CHART */
         .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;}
         .summary-card { background: white; padding: 12px; border-radius: 10px; border: 1px solid #cddaf1; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center;}
         .summary-title { font-size: 11px; color: #888; font-weight: 700; margin-bottom: 4px; text-transform: uppercase;}
@@ -106,13 +84,9 @@
     <div id="tab-gudang" class="tab-content active">
         <div class="section">
             <div class="section-title">Restock Bahan Mentah</div>
-            <div class="input-group">
-                <label>Nama Bahan</label>
-                <input type="text" id="baruNama" list="listNamaBarang">
-                <datalist id="listNamaBarang"></datalist>
-            </div>
+            <div class="input-group"><label>Nama Bahan</label><input type="text" id="baruNama" list="listNamaBarang"><datalist id="listNamaBarang"></datalist></div>
             <div class="grid-2">
-                <div><label>Total Harga Beli</label><input type="text" id="baruHarga" inputmode="numeric" oninput="formatTitik(this)"></div>
+                <div><label>Total Beli</label><input type="text" id="baruHarga" inputmode="numeric" oninput="formatTitik(this)"></div>
                 <div><label>Dapat Berapa</label><input type="text" id="baruQty" inputmode="decimal"></div>
             </div>
             <div class="grid-2">
@@ -121,8 +95,7 @@
             </div>
             <div class="input-group" style="margin-top: 10px; background: white; padding: 8px; border-radius: 6px; border: 1px solid #cddaf1;">
                 <label style="margin: 0; display: flex; align-items: center; cursor: pointer;">
-                    <input type="checkbox" id="baruDefault" checked style="width: auto; margin-right: 10px; transform: scale(1.2);"> 
-                    Jadikan Bahan Utama
+                    <input type="checkbox" id="baruDefault" checked style="width: auto; margin-right: 10px; transform: scale(1.2);"> Jadikan Bahan Utama
                 </label>
             </div>
             <button class="btn-action" onclick="tambahBarangGudang()">Simpan ke Gudang</button>
@@ -135,23 +108,12 @@
     <div id="tab-master" class="tab-content">
         <div class="section">
             <div class="section-title">Buat Model Bunga Baru</div>
-            <div class="input-group">
-                <label>Nama Bunga</label>
-                <input type="text" id="masterNama">
-            </div>
-            <div class="input-group">
-                <label>Foto Bunga</label>
-                <input type="file" id="masterGambar" accept="image/*" style="padding: 5px; background: white;">
-            </div>
-            
+            <div class="input-group"><label>Nama Bunga</label><input type="text" id="masterNama"></div>
+            <div class="input-group"><label>Foto Bunga</label><input type="file" id="masterGambar" accept="image/*" style="padding: 5px; background: white;"></div>
             <div style="margin-top: 15px;">
                 <label style="color: var(--secondary); font-weight: 700; margin-bottom: 10px; display: block;">Bahan yang Dipakai</label>
                 <div id="masterResepList"></div>
-                
-                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                    <select id="masterPilihBahan"></select>
-                    <button class="btn-small" onclick="tambahKeMaster()">+ Tambah</button>
-                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;"><select id="masterPilihBahan"></select><button class="btn-small" onclick="tambahKeMaster()">+ Tambah</button></div>
             </div>
             <button class="btn-action" onclick="simpanMasterBunga()" style="margin-top: 20px;">Simpan Model Bunga</button>
         </div>
@@ -163,28 +125,14 @@
     <div id="tab-kasir" class="tab-content">
         <div class="section">
             <div class="section-title">1. Info Pesanan</div>
-            <div class="input-group">
-                <label>Nama Pemesan</label>
-                <input type="text" id="kasirPemesan">
-            </div>
-            <div class="input-group">
-                <label>Model Bunga</label>
-                <select id="kasirPilihBunga" onchange="muatResepKeKasir()">
-                    <option value="">-- Buat Resep Custom --</option>
-                </select>
-            </div>
+            <div class="input-group"><label>Nama Pemesan</label><input type="text" id="kasirPemesan"></div>
+            <div class="input-group"><label>Model Bunga</label><select id="kasirPilihBunga" onchange="muatResepKeKasir()"><option value="">-- Buat Resep Custom --</option></select></div>
         </div>
-
         <div class="section">
             <div class="section-title">2. Resep Bunga</div>
             <div id="kasirResepList"></div> 
-            
-            <div style="display: flex; gap: 10px; margin-top: 15px;">
-                <select id="kasirPilihTambahan"></select>
-                <button class="btn-small" onclick="tambahTambahanKeKasir()">+ Tambah</button>
-            </div>
+            <div style="display: flex; gap: 10px; margin-top: 15px;"><select id="kasirPilihTambahan"></select><button class="btn-small" onclick="tambahTambahanKeKasir()">+ Tambah</button></div>
         </div>
-
         <div class="section">
             <div class="section-title">3. Kalkulasi Pembayaran</div>
             <div class="grid-2">
@@ -200,42 +148,21 @@
         </div>
     </div>
 
-    <!-- TAB 4: RIWAYAT & DASHBOARD -->
+    <!-- TAB 4: RIWAYAT -->
     <div id="tab-riwayat" class="tab-content">
         <div class="section-title">Dashboard Keuangan</div>
-        
         <select id="chartFilter" onchange="renderRiwayat()" style="margin-bottom: 15px; font-weight: 700; color: var(--secondary);">
-            <option value="7days">7 Hari Terakhir</option>
-            <option value="thisYear">Tahun Ini (Per Bulan)</option>
-            <option value="allTime">Semua Waktu (Per Tahun)</option>
+            <option value="7days">7 Hari Terakhir</option><option value="thisYear">Tahun Ini (Per Bulan)</option><option value="allTime">Semua Waktu (Per Tahun)</option>
         </select>
-
         <div class="summary-grid">
-            <div class="summary-card">
-                <div class="summary-title">Total Omset</div>
-                <div class="summary-value" id="sumOmset">Rp 0</div>
-            </div>
-            <div class="summary-card">
-                <div class="summary-title">Cuan Bersih</div>
-                <div class="summary-value" id="sumProfit">Rp 0</div>
-            </div>
-            <div class="summary-card">
-                <div class="summary-title">Rata-rata Transaksi</div>
-                <div class="summary-value" id="sumAvg">Rp 0</div>
-            </div>
-            <div class="summary-card">
-                <div class="summary-title">Margin Profit</div>
-                <div class="summary-value" id="sumMargin">0%</div>
-            </div>
+            <div class="summary-card"><div class="summary-title">Total Omset</div><div class="summary-value" id="sumOmset">Rp 0</div></div>
+            <div class="summary-card"><div class="summary-title">Cuan Bersih</div><div class="summary-value" id="sumProfit">Rp 0</div></div>
+            <div class="summary-card"><div class="summary-title">Rata-rata Transaksi</div><div class="summary-value" id="sumAvg">Rp 0</div></div>
+            <div class="summary-card"><div class="summary-title">Margin Profit</div><div class="summary-value" id="sumMargin">0%</div></div>
         </div>
-
-        <div class="chart-container">
-            <canvas id="financeChart"></canvas>
-        </div>
-
+        <div class="chart-container"><canvas id="financeChart"></canvas></div>
         <div class="section-title">Produk Terlaris</div>
         <div id="statistikPenjualan" style="margin-bottom: 20px;"></div>
-
         <div class="section-title">Detail Riwayat Transaksi</div>
         <div id="daftarRiwayat"></div>
         <button class="btn-action" onclick="hapusSemuaRiwayat()" style="background: #e74c3c; margin-top: 20px;">Hapus Semua Riwayat</button>
@@ -243,53 +170,44 @@
 </div>
 
 <script>
-    // Atur Font Default Chart.js ke Satoshi
-    Chart.defaults.font.family = "'Satoshi', sans-serif";
-    Chart.defaults.font.size = 12;
-
+    Chart.defaults.font.family = "'Satoshi', sans-serif"; Chart.defaults.font.size = 12;
     const defaultBahanImg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23eaf0f9'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='50'>📦</text></svg>";
     const defaultBungaImg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='200' height='200' fill='%23f0f4fa'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='50'>💐</text></svg>";
 
-    const dataAwal = [
-        { id: 1, nama: 'Kawat Bulu', beli: 12000, qtyBeli: 100, stok: 100, satuan: 'pcs', isDefault: true, gambar: defaultBahanImg },
-        { id: 2, nama: 'Lem Tembak', beli: 1500, qtyBeli: 1, stok: 1, satuan: 'btg', isDefault: true, gambar: defaultBahanImg },
-        { id: 3, nama: 'Pita Satin', beli: 5000, qtyBeli: 20, stok: 20, satuan: 'meter', isDefault: true, gambar: defaultBahanImg },
-        { id: 4, nama: 'Kertas Wrapping', beli: 15000, qtyBeli: 20, stok: 20, satuan: 'lembar', isDefault: true, gambar: defaultBahanImg },
-        { id: 5, nama: 'Floral Tape', beli: 3500, qtyBeli: 1, stok: 1, satuan: 'roll', isDefault: true, gambar: defaultBahanImg }
-    ];
-
-    let gudang = JSON.parse(localStorage.getItem('zura_gudang')) || dataAwal;
+    let gudang = JSON.parse(localStorage.getItem('zura_gudang')) || [];
     let masterBunga = JSON.parse(localStorage.getItem('zura_master')) || [];
     let riwayat = JSON.parse(localStorage.getItem('zura_riwayat')) || [];
     
-    let masterBuilderAktif = []; 
-    let kasirResepAktif = [];    
-    let kasirDieditManual = false;
-    let financeChart = null; 
+    let masterBuilderAktif = []; let kasirResepAktif = []; let kasirDieditManual = false; let financeChart = null; 
+
+    // Pengaman Penyimpanan (Try-Catch)
+    function simpanKeMemori(key, data) {
+        try { localStorage.setItem(key, JSON.stringify(data)); } 
+        catch (e) { alert("❌ GAGAL MENYIMPAN!\nMemori penyimpanan HP mu sudah penuh. Tolong hapus beberapa transaksi atau barang lama."); return false; }
+        return true;
+    }
 
     function formatTitik(el) { let val = el.value.replace(/[^0-9]/g, ''); el.value = val ? new Intl.NumberFormat('id-ID').format(val) : ''; }
     function bersihkanRupiah(val) { if(!val) return 0; let angka = parseInt(val.toString().replace(/[^0-9]/g, '')); return isNaN(angka) ? 0 : angka; }
     function parseDesimal(val) { if(!val) return 0; val = val.toString().replace(/,/g, '.').replace(/[^0-9.]/g, ''); return parseFloat(val) || 0; }
     function formatRupiah(angka) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka); }
-    
-    function parseDate(str) {
-        let parts = str.split('/');
-        return new Date(parts[2], parts[1] - 1, parts[0]);
-    }
+    function parseDate(str) { let parts = str.split('/'); return new Date(parts[2], parts[1] - 1, parts[0]); }
 
+    // KOMPRESI EXTREME UNTUK HP (Ukuran 300px, Kualitas 0.5)
     function kompresGambar(file, callback) {
         if (!file) { callback(''); return; }
         const reader = new FileReader();
         reader.onload = function(e) {
             const img = new Image();
             img.onload = function() {
-                const canvas = document.createElement('canvas'); const SIZE = 500; 
+                const canvas = document.createElement('canvas'); const SIZE = 300; 
                 canvas.width = SIZE; canvas.height = SIZE; const ctx = canvas.getContext('2d');
                 let ratio = img.width / img.height; let sx = 0, sy = 0, sw = img.width, sh = img.height;
                 if (ratio > 1) { sw = img.height; sx = (img.width - img.height) / 2; } 
                 else { sh = img.width; sy = (img.height - img.width) / 2; }
                 ctx.fillStyle = '#fff'; ctx.fillRect(0,0,SIZE,SIZE);
-                ctx.drawImage(img, sx, sy, sw, sh, 0, 0, SIZE, SIZE); callback(canvas.toDataURL('image/jpeg', 0.8));
+                ctx.drawImage(img, sx, sy, sw, sh, 0, 0, SIZE, SIZE); 
+                callback(canvas.toDataURL('image/jpeg', 0.5));
             }
             img.src = e.target.result;
         }
@@ -299,9 +217,7 @@
     function bukaTab(idTab) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        document.getElementById('tab-' + idTab).classList.add('active');
-        event.target.classList.add('active');
-
+        document.getElementById('tab-' + idTab).classList.add('active'); event.target.classList.add('active');
         if(idTab === 'gudang') renderGudang();
         if(idTab === 'master') { if(masterBuilderAktif.length === 0) initMasterBuilder(); renderMaster(); }
         if(idTab === 'kasir') { if(kasirResepAktif.length === 0) muatResepKeKasir(); renderKasir(); }
@@ -316,77 +232,58 @@
             datalistHtml += `<option value="${item.nama}">`;
             selectHtml += `<option value="${item.id}">${item.nama} (Stok: ${item.stok})</option>`;
             let badgeUtama = item.isDefault ? '<span style="position:absolute; top:5px; left:5px; background:var(--primary); color:#333; font-size:10px; padding:3px 8px; border-radius:10px; font-weight:700; z-index:2;">Utama</span>' : '';
-
             html += `
                 <div class="catalog-card">
-                    ${badgeUtama}
-                    <button class="btn-delete-card" onclick="hapusBarangGudang(${index})">×</button>
+                    ${badgeUtama} <button class="btn-delete-card" onclick="hapusBarangGudang(${index})">×</button>
                     <img src="${item.gambar || defaultBahanImg}" class="catalog-img">
                     <div class="catalog-info">
                         <div class="catalog-name">${item.nama}</div>
                         <div class="catalog-price">Modal: <span style="font-weight:700;">${formatRupiah(hargaSatuan)}</span>/${item.satuan}</div>
                         <div class="catalog-stock">Sisa: ${item.stok}</div>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
-        document.getElementById('daftarGudang').innerHTML = html;
-        document.getElementById('listNamaBarang').innerHTML = datalistHtml;
-        document.getElementById('masterPilihBahan').innerHTML = selectHtml;
-        document.getElementById('kasirPilihTambahan').innerHTML = selectHtml;
-        localStorage.setItem('zura_gudang', JSON.stringify(gudang));
+        document.getElementById('daftarGudang').innerHTML = html; document.getElementById('listNamaBarang').innerHTML = datalistHtml;
+        document.getElementById('masterPilihBahan').innerHTML = selectHtml; document.getElementById('kasirPilihTambahan').innerHTML = selectHtml;
     }
 
     function tambahBarangGudang() {
-        let nama = document.getElementById('baruNama').value.trim();
-        let beli = bersihkanRupiah(document.getElementById('baruHarga').value); 
-        let qtyBeli = parseDesimal(document.getElementById('baruQty').value);
-        let satuan = document.getElementById('baruSatuan').value || 'pcs';
-        let isDefault = document.getElementById('baruDefault').checked;
-        let fileInput = document.getElementById('baruGambar').files[0];
-
+        let nama = document.getElementById('baruNama').value.trim(); let beli = bersihkanRupiah(document.getElementById('baruHarga').value); 
+        let qtyBeli = parseDesimal(document.getElementById('baruQty').value); let satuan = document.getElementById('baruSatuan').value || 'pcs';
+        let isDefault = document.getElementById('baruDefault').checked; let fileInput = document.getElementById('baruGambar').files[0];
         if(nama === '' || beli === 0 || qtyBeli === 0) { alert('Data bahan tidak valid!'); return; }
 
         kompresGambar(fileInput, function(gambarBase64) {
             let existing = gudang.find(g => g.nama.toLowerCase() === nama.toLowerCase());
+            let tempGudang = [...gudang];
             if(existing) {
-                existing.stok += qtyBeli; existing.beli = beli; existing.qtyBeli = qtyBeli;
-                existing.isDefault = isDefault;
+                existing.stok += qtyBeli; existing.beli = beli; existing.qtyBeli = qtyBeli; existing.isDefault = isDefault;
                 if(document.getElementById('baruSatuan').value !== '') existing.satuan = satuan;
                 if(gambarBase64 !== '') existing.gambar = gambarBase64;
-            } else {
-                gudang.push({ id: Date.now(), nama, beli, qtyBeli, stok: qtyBeli, satuan, isDefault, gambar: gambarBase64 || defaultBahanImg });
-            }
-            document.getElementById('baruNama').value = ''; document.getElementById('baruHarga').value = '';
-            document.getElementById('baruQty').value = ''; document.getElementById('baruSatuan').value = ''; 
-            document.getElementById('baruGambar').value = '';
-            renderGudang();
+            } else { gudang.push({ id: Date.now(), nama, beli, qtyBeli, stok: qtyBeli, satuan, isDefault, gambar: gambarBase64 || defaultBahanImg }); }
+            
+            if(simpanKeMemori('zura_gudang', gudang)) {
+                document.getElementById('baruNama').value = ''; document.getElementById('baruHarga').value = '';
+                document.getElementById('baruQty').value = ''; document.getElementById('baruSatuan').value = ''; document.getElementById('baruGambar').value = '';
+                renderGudang();
+            } else { gudang = tempGudang; } // Rollback jika error
         });
     }
 
-    function hapusBarangGudang(index) { if(confirm('Hapus bahan ini permanen?')) { gudang.splice(index, 1); renderGudang(); } }
+    function hapusBarangGudang(index) { if(confirm('Hapus bahan ini permanen?')) { gudang.splice(index, 1); simpanKeMemori('zura_gudang', gudang); renderGudang(); } }
 
-    // --- MASTER BUNGA ---
-    function initMasterBuilder() {
-        masterBuilderAktif = [];
-        gudang.forEach(g => { if(g.isDefault) masterBuilderAktif.push({ idBarang: g.id, qty: '' }); });
-    }
+    // --- MASTER ---
+    function initMasterBuilder() { masterBuilderAktif = []; gudang.forEach(g => { if(g.isDefault) masterBuilderAktif.push({ idBarang: g.id, qty: '' }); }); }
 
     function renderMaster() {
         let html = ''; let selectBungaHtml = '<option value="">-- Buat Custom --</option>';
         masterBunga.forEach((bunga, index) => {
             selectBungaHtml += `<option value="${bunga.id}">${bunga.namaBunga}</option>`;
-            let modalEstimasi = 0;
-            let listResepBack = '';
-            
+            let modalEstimasi = 0; let listResepBack = '';
             bunga.resep.forEach(r => {
                 let brg = gudang.find(g => g.id == r.idBarang);
-                if(brg) {
-                    modalEstimasi += (brg.beli / brg.qtyBeli) * r.qty;
-                    listResepBack += `<li style="margin-bottom:4px;"><span style="font-weight:700;">${r.qty} ${brg.satuan}</span> ${brg.nama}</li>`;
-                }
+                if(brg) { modalEstimasi += (brg.beli / brg.qtyBeli) * r.qty; listResepBack += `<li style="margin-bottom:4px;"><span style="font-weight:700;">${r.qty} ${brg.satuan}</span> ${brg.nama}</li>`; }
             });
-
             html += `
                 <div class="flip-card" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
@@ -401,70 +298,52 @@
                         </div>
                         <div class="flip-card-back">
                             <h4 style="margin-top:0; color:var(--secondary); border-bottom: 1px solid #cddaf1; padding-bottom:5px; font-weight:700;">Resep Bahan</h4>
-                            <ul style="padding-left:15px; margin:0; font-size:13px; color:#555; font-weight:500;">
-                                ${listResepBack || '<li>Bahan kosong/terhapus</li>'}
-                            </ul>
+                            <ul style="padding-left:15px; margin:0; font-size:13px; color:#555; font-weight:500;">${listResepBack || '<li>Bahan terhapus</li>'}</ul>
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
-        document.getElementById('daftarMasterBunga').innerHTML = html;
-        document.getElementById('kasirPilihBunga').innerHTML = selectBungaHtml;
-        localStorage.setItem('zura_master', JSON.stringify(masterBunga));
+        document.getElementById('daftarMasterBunga').innerHTML = html; document.getElementById('kasirPilihBunga').innerHTML = selectBungaHtml;
         
         let builderHtml = '';
         masterBuilderAktif.forEach(item => {
             let brg = gudang.find(g => g.id == item.idBarang);
             if(brg) {
-                builderHtml += `
-                    <div class="resep-item">
-                        <div style="flex:2;">
-                            <div style="font-size:14px; font-weight:700; color:var(--secondary);">${brg.nama}</div>
-                            <div style="font-size:12px; color:#888; font-weight:500;">Stok Gudang: <span style="font-weight:700;">${brg.stok}</span></div>
-                        </div>
+                builderHtml += `<div class="resep-item">
+                        <div style="flex:2;"><div style="font-size:14px; font-weight:700; color:var(--secondary);">${brg.nama}</div><div style="font-size:12px; color:#888; font-weight:500;">Stok Gudang: <span style="font-weight:700;">${brg.stok}</span></div></div>
                         <input type="text" placeholder="Dipakai" value="${item.qty}" inputmode="decimal" oninput="updateQtyMaster(${item.idBarang}, this.value)">
                         <button class="btn-small" style="background:#e74c3c; color:white;" onclick="hapusBahanMaster(${item.idBarang})">✖</button>
-                    </div>
-                `;
+                    </div>`;
             }
         });
         document.getElementById('masterResepList').innerHTML = builderHtml || '<span style="font-size:12px; color:#888; font-weight:500;">Belum ada bahan.</span>';
     }
 
-    function tambahKeMaster() {
-        let idBarang = document.getElementById('masterPilihBahan').value;
-        if(idBarang && !masterBuilderAktif.find(m => m.idBarang == idBarang)) { masterBuilderAktif.push({ idBarang: parseInt(idBarang), qty: '' }); renderMaster(); }
-    }
+    function tambahKeMaster() { let idBarang = document.getElementById('masterPilihBahan').value; if(idBarang && !masterBuilderAktif.find(m => m.idBarang == idBarang)) { masterBuilderAktif.push({ idBarang: parseInt(idBarang), qty: '' }); renderMaster(); } }
     function updateQtyMaster(idBarang, val) { let obj = masterBuilderAktif.find(m => m.idBarang == idBarang); if(obj) obj.qty = val; }
     function hapusBahanMaster(idBarang) { masterBuilderAktif = masterBuilderAktif.filter(m => m.idBarang != idBarang); renderMaster(); }
 
     function simpanMasterBunga() {
-        let namaBunga = document.getElementById('masterNama').value;
-        let fileInput = document.getElementById('masterGambar').files[0];
-        let resepBersih = [];
-        masterBuilderAktif.forEach(item => { let numQty = parseDesimal(item.qty); if(numQty > 0) resepBersih.push({ idBarang: item.idBarang, qty: numQty }); });
-
-        if(namaBunga === '' || resepBersih.length === 0) { alert('Nama dan minimal 1 resep bahan harus diisi!'); return; }
+        let namaBunga = document.getElementById('masterNama').value; let fileInput = document.getElementById('masterGambar').files[0];
+        let resepBersih = []; masterBuilderAktif.forEach(item => { let numQty = parseDesimal(item.qty); if(numQty > 0) resepBersih.push({ idBarang: item.idBarang, qty: numQty }); });
+        if(namaBunga === '' || resepBersih.length === 0) { alert('Nama dan resep harus diisi!'); return; }
 
         kompresGambar(fileInput, function(gambarBase64) {
+            let tempMaster = [...masterBunga];
             masterBunga.push({ id: Date.now(), namaBunga: namaBunga, resep: resepBersih, gambar: gambarBase64 || defaultBungaImg });
-            document.getElementById('masterNama').value = ''; document.getElementById('masterGambar').value = '';
-            initMasterBuilder(); renderMaster();
+            if(simpanKeMemori('zura_master', masterBunga)) {
+                document.getElementById('masterNama').value = ''; document.getElementById('masterGambar').value = '';
+                initMasterBuilder(); renderMaster();
+            } else { masterBunga = tempMaster; }
         });
     }
-    function hapusMasterBunga(index) { if(confirm('Hapus template Bunga ini?')) { masterBunga.splice(index, 1); renderMaster(); } }
+    function hapusMasterBunga(index) { if(confirm('Hapus template ini?')) { masterBunga.splice(index, 1); simpanKeMemori('zura_master', masterBunga); renderMaster(); } }
 
     // --- KASIR ---
     function muatResepKeKasir() {
-        let idBunga = document.getElementById('kasirPilihBunga').value;
-        kasirResepAktif = [];
-        if(idBunga) {
-            let bunga = masterBunga.find(m => m.id == idBunga);
-            if(bunga) kasirResepAktif = bunga.resep.map(r => ({ idBarang: r.idBarang, qty: r.qty }));
-        } else {
-            gudang.forEach(g => { if(g.isDefault) kasirResepAktif.push({ idBarang: g.id, qty: '' }); });
-        }
+        let idBunga = document.getElementById('kasirPilihBunga').value; kasirResepAktif = [];
+        if(idBunga) { let bunga = masterBunga.find(m => m.id == idBunga); if(bunga) kasirResepAktif = bunga.resep.map(r => ({ idBarang: r.idBarang, qty: r.qty })); } 
+        else { gudang.forEach(g => { if(g.isDefault) kasirResepAktif.push({ idBarang: g.id, qty: '' }); }); }
         kasirDieditManual = false; renderKasir();
     }
 
@@ -473,112 +352,75 @@
         kasirResepAktif.forEach(item => {
             let brg = gudang.find(g => g.id == item.idBarang);
             if(brg) {
-                html += `
-                    <div class="resep-item">
-                        <div style="flex:2;">
-                            <div style="font-weight:700; font-size:14px; color:var(--secondary);">${brg.nama}</div>
-                            <div style="font-size:12px; color:#888; font-weight:500;">Stok Gudang: <span style="font-weight:700;">${brg.stok} ${brg.satuan}</span></div>
-                        </div>
+                html += `<div class="resep-item">
+                        <div style="flex:2;"><div style="font-weight:700; font-size:14px; color:var(--secondary);">${brg.nama}</div><div style="font-size:12px; color:#888; font-weight:500;">Stok Gudang: <span style="font-weight:700;">${brg.stok} ${brg.satuan}</span></div></div>
                         <input type="text" placeholder="Dipakai" value="${item.qty}" inputmode="decimal" oninput="updateQtyKasir(${item.idBarang}, this.value)">
                         <button class="btn-small" style="background:#e74c3c; color:white;" onclick="hapusBahanKasir(${item.idBarang})">✖</button>
-                    </div>
-                `;
+                    </div>`;
             }
         });
-        document.getElementById('kasirResepList').innerHTML = html || '<div class="info-text">Resep kosong.</div>';
-        hitungTotalKasir();
+        document.getElementById('kasirResepList').innerHTML = html || '<div class="info-text">Resep kosong.</div>'; hitungTotalKasir();
     }
 
-    function tambahTambahanKeKasir() {
-        let idBarang = document.getElementById('kasirPilihTambahan').value;
-        if(idBarang && !kasirResepAktif.find(m => m.idBarang == idBarang)) { kasirResepAktif.push({ idBarang: parseInt(idBarang), qty: '' }); renderKasir(); }
-    }
+    function tambahTambahanKeKasir() { let idBarang = document.getElementById('kasirPilihTambahan').value; if(idBarang && !kasirResepAktif.find(m => m.idBarang == idBarang)) { kasirResepAktif.push({ idBarang: parseInt(idBarang), qty: '' }); renderKasir(); } }
     function updateQtyKasir(idBarang, val) { let obj = kasirResepAktif.find(m => m.idBarang == idBarang); if(obj) { obj.qty = val; hitungTotalKasir(); } }
     function hapusBahanKasir(idBarang) { kasirResepAktif = kasirResepAktif.filter(m => m.idBarang != idBarang); renderKasir(); }
 
     function hitungTotalKasir() {
         let totalModal = 0;
-        kasirResepAktif.forEach(item => {
-            let brg = gudang.find(g => g.id == item.idBarang);
-            let numQty = parseDesimal(item.qty);
-            if(brg && numQty > 0) totalModal += (brg.beli / brg.qtyBeli) * numQty;
-        });
+        kasirResepAktif.forEach(item => { let brg = gudang.find(g => g.id == item.idBarang); let numQty = parseDesimal(item.qty); if(brg && numQty > 0) totalModal += (brg.beli / brg.qtyBeli) * numQty; });
+        let jasa = totalModal * 1.0; let persenUntung = parseDesimal(document.getElementById('kasirPersen').value);
+        let untung = totalModal * (persenUntung / 100); let rekomendasi = totalModal + jasa + untung;
 
-        let jasa = totalModal * 1.0; 
-        let persenUntung = parseDesimal(document.getElementById('kasirPersen').value);
-        let untung = totalModal * (persenUntung / 100);
-        let rekomendasi = totalModal + jasa + untung;
-
-        document.getElementById('kasirModal').innerText = formatRupiah(totalModal);
-        document.getElementById('kasirJasa').innerText = formatRupiah(jasa);
-        document.getElementById('kasirRekomendasi').innerText = formatRupiah(rekomendasi);
-
+        document.getElementById('kasirModal').innerText = formatRupiah(totalModal); document.getElementById('kasirJasa').innerText = formatRupiah(jasa); document.getElementById('kasirRekomendasi').innerText = formatRupiah(rekomendasi);
         let inputFinal = document.getElementById('kasirFinal');
         if(totalModal > 0 && !kasirDieditManual) { inputFinal.value = new Intl.NumberFormat('id-ID').format(Math.ceil(rekomendasi / 500) * 500); } 
         else if (totalModal === 0) { inputFinal.value = ''; kasirDieditManual = false; }
     }
 
     function selesaikanPesanan() {
-        let pemesan = document.getElementById('kasirPemesan').value || 'Pelanggan Umum';
-        let selectBunga = document.getElementById('kasirPilihBunga');
+        let pemesan = document.getElementById('kasirPemesan').value || 'Pelanggan Umum'; let selectBunga = document.getElementById('kasirPilihBunga');
         let namaProject = selectBunga.value !== "" ? selectBunga.options[selectBunga.selectedIndex].text : "Custom/Lainnya";
 
-        let bahanTerpakai = []; let totalModal = 0;
+        let bahanTerpakai = []; let totalModal = 0; let tempGudang = JSON.parse(JSON.stringify(gudang)); // Buat backup
         kasirResepAktif.forEach(item => {
             let numQty = parseDesimal(item.qty);
             if(numQty > 0) {
                 let indexGudang = gudang.findIndex(g => g.id == item.idBarang);
                 if(indexGudang !== -1) {
-                    let b = gudang[indexGudang];
-                    let modalItem = (b.beli / b.qtyBeli) * numQty;
+                    let b = gudang[indexGudang]; let modalItem = (b.beli / b.qtyBeli) * numQty;
                     bahanTerpakai.push({ idBarang: b.id, nama: b.nama, qty: numQty, satuan: b.satuan, modal: modalItem });
-                    gudang[indexGudang].stok -= numQty; 
-                    totalModal += modalItem;
+                    gudang[indexGudang].stok -= numQty; totalModal += modalItem;
                 }
             }
         });
 
-        if(bahanTerpakai.length === 0) { alert('Pesanan kosong! Isi jumlah bahan.'); return; }
+        if(bahanTerpakai.length === 0) { alert('Pesanan kosong!'); gudang = tempGudang; return; }
 
         let hargaJual = bersihkanRupiah(document.getElementById('kasirFinal').value);
-        riwayat.push({
-            tanggal: new Date().toLocaleDateString('id-ID'),
-            namaPemesan: pemesan, namaProject: namaProject,
-            modal: totalModal, jual: hargaJual, bahan: bahanTerpakai
-        });
+        let tempRiwayat = [...riwayat];
+        riwayat.push({ tanggal: new Date().toLocaleDateString('id-ID'), namaPemesan: pemesan, namaProject: namaProject, modal: totalModal, jual: hargaJual, bahan: bahanTerpakai });
 
-        localStorage.setItem('zura_gudang', JSON.stringify(gudang));
-        localStorage.setItem('zura_riwayat', JSON.stringify(riwayat));
-
-        document.getElementById('kasirPemesan').value = ''; muatResepKeKasir(); 
-        bukaTab('riwayat');
+        if(simpanKeMemori('zura_riwayat', riwayat) && simpanKeMemori('zura_gudang', gudang)) {
+            document.getElementById('kasirPemesan').value = ''; muatResepKeKasir(); bukaTab('riwayat');
+        } else {
+            // Rollback jika memori penuh
+            riwayat = tempRiwayat; gudang = tempGudang;
+        }
     }
 
     // --- DASHBOARD & RIWAYAT ---
     function renderRiwayat() {
-        let filter = document.getElementById('chartFilter').value;
-        let now = new Date();
-        
-        let labels = []; let omsetData = []; let profitData = [];
-        let totalOmset = 0; let totalProfit = 0; let totalTrx = 0;
+        let filter = document.getElementById('chartFilter').value; let now = new Date();
+        let labels = []; let omsetData = []; let profitData = []; let totalOmset = 0; let totalProfit = 0; let totalTrx = 0;
 
         if (filter === '7days') {
-            for (let i = 6; i >= 0; i--) {
-                let d = new Date(); d.setDate(d.getDate() - i);
-                labels.push(`${d.getDate()}/${d.getMonth()+1}`);
-                omsetData.push(0); profitData.push(0);
-            }
+            for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); labels.push(`${d.getDate()}/${d.getMonth()+1}`); omsetData.push(0); profitData.push(0); }
             riwayat.forEach(r => {
-                let d = parseDate(r.tanggal);
-                let diffDays = Math.ceil(Math.abs(now - d) / (1000 * 60 * 60 * 24)); 
+                let d = parseDate(r.tanggal); let diffDays = Math.ceil(Math.abs(now - d) / (1000 * 60 * 60 * 24)); 
                 if (diffDays <= 7) {
-                    let lbl = `${d.getDate()}/${d.getMonth()+1}`;
-                    let idx = labels.indexOf(lbl);
-                    if(idx !== -1) {
-                        let profit = r.jual - r.modal;
-                        omsetData[idx] += r.jual; profitData[idx] += profit;
-                        totalOmset += r.jual; totalProfit += profit; totalTrx++;
-                    }
+                    let idx = labels.indexOf(`${d.getDate()}/${d.getMonth()+1}`);
+                    if(idx !== -1) { let profit = r.jual - r.modal; omsetData[idx] += r.jual; profitData[idx] += profit; totalOmset += r.jual; totalProfit += profit; totalTrx++; }
                 }
             });
         } else if (filter === 'thisYear') {
@@ -587,124 +429,65 @@
             riwayat.forEach(r => {
                 let d = parseDate(r.tanggal);
                 if(d.getFullYear() === now.getFullYear()) {
-                    let month = d.getMonth(); let profit = r.jual - r.modal;
-                    omsetData[month] += r.jual; profitData[month] += profit;
-                    totalOmset += r.jual; totalProfit += profit; totalTrx++;
+                    let profit = r.jual - r.modal; omsetData[d.getMonth()] += r.jual; profitData[d.getMonth()] += profit; totalOmset += r.jual; totalProfit += profit; totalTrx++;
                 }
             });
         } else if (filter === 'allTime') {
             let years = {};
             riwayat.forEach(r => {
-                let y = parseDate(r.tanggal).getFullYear();
-                if(!years[y]) years[y] = {omset:0, profit:0};
-                let profit = r.jual - r.modal;
-                years[y].omset += r.jual; years[y].profit += profit;
-                totalOmset += r.jual; totalProfit += profit; totalTrx++;
+                let y = parseDate(r.tanggal).getFullYear(); if(!years[y]) years[y] = {omset:0, profit:0};
+                let profit = r.jual - r.modal; years[y].omset += r.jual; years[y].profit += profit; totalOmset += r.jual; totalProfit += profit; totalTrx++;
             });
-            labels = Object.keys(years).sort();
-            labels.forEach(y => { omsetData.push(years[y].omset); profitData.push(years[y].profit); });
+            labels = Object.keys(years).sort(); labels.forEach(y => { omsetData.push(years[y].omset); profitData.push(years[y].profit); });
         }
 
-        document.getElementById('sumOmset').innerText = formatRupiah(totalOmset);
-        let elProfit = document.getElementById('sumProfit');
-        elProfit.innerText = formatRupiah(totalProfit);
-        elProfit.className = 'summary-value ' + (totalProfit >= 0 ? 'val-green' : 'val-red');
-        
-        let avgTrx = totalTrx > 0 ? totalOmset / totalTrx : 0;
-        document.getElementById('sumAvg').innerText = formatRupiah(avgTrx);
-        
-        let margin = totalOmset > 0 ? (totalProfit / totalOmset) * 100 : 0;
-        document.getElementById('sumMargin').innerText = margin.toFixed(1) + '%';
+        document.getElementById('sumOmset').innerText = formatRupiah(totalOmset); let elProfit = document.getElementById('sumProfit');
+        elProfit.innerText = formatRupiah(totalProfit); elProfit.className = 'summary-value ' + (totalProfit >= 0 ? 'val-green' : 'val-red');
+        document.getElementById('sumAvg').innerText = formatRupiah(totalTrx > 0 ? totalOmset / totalTrx : 0);
+        document.getElementById('sumMargin').innerText = (totalOmset > 0 ? (totalProfit / totalOmset) * 100 : 0).toFixed(1) + '%';
 
-        // RENDER GRAFIK
         if(financeChart) financeChart.destroy();
         const ctx = document.getElementById('financeChart').getContext('2d');
         financeChart = new Chart(ctx, {
             type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [
-                    { label: 'Omset', data: omsetData, backgroundColor: '#B5C7EB', borderRadius: 4 },
-                    { label: 'Cuan Bersih', data: profitData, backgroundColor: '#5D83C5', borderRadius: 4 }
-                ]
-            },
-            options: { 
-                responsive: true, 
-                scales: { 
-                    y: { beginAtZero: true, ticks: { font: { family: "'Satoshi', sans-serif", weight: 500 } } },
-                    x: { ticks: { font: { family: "'Satoshi', sans-serif", weight: 500 } } }
-                }, 
-                plugins: { 
-                    legend: { position: 'bottom', labels: { font: { family: "'Satoshi', sans-serif", weight: 700 } } },
-                    tooltip: { titleFont: { family: "'Satoshi', sans-serif", weight: 700 }, bodyFont: { family: "'Satoshi', sans-serif", weight: 500 } }
-                } 
-            }
+            data: { labels: labels, datasets: [ { label: 'Omset', data: omsetData, backgroundColor: '#B5C7EB', borderRadius: 4 }, { label: 'Cuan Bersih', data: profitData, backgroundColor: '#5D83C5', borderRadius: 4 } ] },
+            options: { responsive: true, scales: { y: { beginAtZero: true, ticks: { font: { family: "'Satoshi', sans-serif", weight: 500 } } }, x: { ticks: { font: { family: "'Satoshi', sans-serif", weight: 500 } } } }, plugins: { legend: { position: 'bottom', labels: { font: { family: "'Satoshi', sans-serif", weight: 700 } } }, tooltip: { titleFont: { family: "'Satoshi', sans-serif", weight: 700 }, bodyFont: { family: "'Satoshi', sans-serif", weight: 500 } } } }
         });
 
-        let stats = {};
-        riwayat.forEach(r => { stats[r.namaProject] = (stats[r.namaProject] || 0) + 1; });
-        
+        let stats = {}; riwayat.forEach(r => { stats[r.namaProject] = (stats[r.namaProject] || 0) + 1; });
         let statHtml = Object.keys(stats).length === 0 ? '<div style="color:#888; font-size:13px; font-weight:500;">Belum ada data.</div>' : '';
         for(let key in stats) { statHtml += `<div class="stat-badge">${key}: ${stats[key]} Terjual</div>`; }
         document.getElementById('statistikPenjualan').innerHTML = statHtml;
 
         let html = riwayat.length === 0 ? '<div style="color:#888; font-size:13px; font-weight:500;">Belum ada transaksi.</div>' : '';
-        
         riwayat.slice().reverse().forEach((r, i) => {
-            let originalIndex = riwayat.length - 1 - i; 
-            let rincian = r.bahan.map(b => `<span style="font-weight:700;">${b.qty}</span> ${b.nama}`).join(', ');
+            let originalIndex = riwayat.length - 1 - i; let rincian = r.bahan.map(b => `<span style="font-weight:700;">${b.qty}</span> ${b.nama}`).join(', ');
             html += `
                 <div style="background: white; padding: 12px; border-radius: 8px; margin-bottom: 10px; border: 1px dashed #cddaf1; position: relative;">
                     <button style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 12px; cursor: pointer; font-weight: 700;" onclick="batalkanPesanan(${originalIndex})">✖ Batal</button>
-                    
-                    <div style="margin-bottom: 5px; padding-right: 60px;">
-                        <span style="font-weight:700; color:var(--secondary); font-size: 14px;">${r.namaPemesan} - ${r.namaProject}</span><br>
-                        <span style="font-size:12px; color:#888; font-weight:500;">${r.tanggal}</span>
-                    </div>
+                    <div style="margin-bottom: 5px; padding-right: 60px;"><span style="font-weight:700; color:var(--secondary); font-size: 14px;">${r.namaPemesan} - ${r.namaProject}</span><br><span style="font-size:12px; color:#888; font-weight:500;">${r.tanggal}</span></div>
                     <div style="font-size:13px; color:#555; margin-bottom: 8px; font-weight:500;"><b>Bahan dipakai:</b> ${rincian}</div>
-                    <div style="display:flex; justify-content:space-between; border-top: 1px dashed #ccc; padding-top:8px; font-size:14px; font-weight:500;">
-                        <span>Modal: <span style="font-weight:700;">${formatRupiah(r.modal)}</span></span>
-                        <span class="text-rupiah">Jual: ${formatRupiah(r.jual)}</span>
-                    </div>
-                </div>
-            `;
+                    <div style="display:flex; justify-content:space-between; border-top: 1px dashed #ccc; padding-top:8px; font-size:14px; font-weight:500;"><span>Modal: <span style="font-weight:700;">${formatRupiah(r.modal)}</span></span><span class="text-rupiah">Jual: ${formatRupiah(r.jual)}</span></div>
+                </div>`;
         });
         document.getElementById('daftarRiwayat').innerHTML = html;
     }
 
     function batalkanPesanan(index) {
-        if(confirm('Batalkan pesanan ini?\n\nBahan yang dipakai akan dikembalikan otomatis ke Stok Gudang.')) {
-            let transaksi = riwayat[index];
-            transaksi.bahan.forEach(b => {
-                let itemGudang = gudang.find(g => g.id == b.idBarang);
-                if(itemGudang) { itemGudang.stok += b.qty; }
-            });
-            riwayat.splice(index, 1);
-            localStorage.setItem('zura_riwayat', JSON.stringify(riwayat));
-            localStorage.setItem('zura_gudang', JSON.stringify(gudang));
-            renderRiwayat();
+        if(confirm('Batalkan pesanan ini? Bahan akan dikembalikan ke Gudang.')) {
+            let transaksi = riwayat[index]; let tempGudang = JSON.parse(JSON.stringify(gudang));
+            transaksi.bahan.forEach(b => { let itemGudang = tempGudang.find(g => g.id == b.idBarang); if(itemGudang) { itemGudang.stok += b.qty; } });
+            let tempRiwayat = [...riwayat]; tempRiwayat.splice(index, 1);
+            if(simpanKeMemori('zura_riwayat', tempRiwayat) && simpanKeMemori('zura_gudang', tempGudang)) { riwayat = tempRiwayat; gudang = tempGudang; renderRiwayat(); }
         }
     }
+    function hapusSemuaRiwayat() { if(confirm('Hapus SEMUA riwayat transaksi?')) { riwayat = []; simpanKeMemori('zura_riwayat', riwayat); renderRiwayat(); } }
 
-    function hapusSemuaRiwayat() {
-        if(confirm('Hapus SEMUA riwayat transaksi secara permanen?')) {
-            riwayat = []; localStorage.setItem('zura_riwayat', JSON.stringify(riwayat)); renderRiwayat();
-        }
-    }
+    // Memanggil Service Worker untuk PWA Download & Offline Mode
+    if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW Gagal:', err)); }); }
 
-    renderGudang();
+    renderGudang(); renderRiwayat();
 </script>
-<script>
-        // Memanggil Service Worker biar aplikasi stabil dan bisa di-download
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').then(reg => {
-                    console.log('Service Worker sukses jalan!', reg.scope);
-                }).catch(err => {
-                    console.log('Service Worker gagal:', err);
-                });
-            });
-        }
-    </script>
+
 </body>
 </html>
