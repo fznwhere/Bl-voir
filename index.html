@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blüvoir POS & Inventory</title>
+    <!-- Import Font Satoshi -->
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <!-- PWA Requirements -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#B5C7EB">
     <link rel="apple-touch-icon" href="./logo.png">
-    
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <!-- Script untuk Grafik -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { --primary: #B5C7EB; --secondary: #5D83C5; --bg: #F0F4FA; --text: #333; --white: #ffffff; }
-        body { font-family: 'Satoshi', sans-serif; font-weight: 400; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; justify-content: center; }
+        :root {
+            --primary: #B5C7EB; 
+            --secondary: #5D83C5; 
+            --bg: #F0F4FA; 
+            --text: #333; 
+            --white: #ffffff;
+        }
+        body {
+            font-family: 'Satoshi', sans-serif; font-weight: 400; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; justify-content: center;
+        }
         .container { background: var(--white); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 600px; width: 100%; }
         h2 { color: var(--secondary); text-align: center; margin-top: 0; margin-bottom: 20px; letter-spacing: 1px; font-weight: 700;}
         
@@ -35,6 +45,7 @@
         .btn-action:hover { background: #4A6DAA; }
         .btn-small { background: var(--primary); color: white; border: none; border-radius: 6px; padding: 6px 12px; font-weight: 700; cursor: pointer; color: #333; font-family: 'Satoshi', sans-serif;}
         
+        /* KATALOG & FLIP CARD */
         .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px;}
         .catalog-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border: 1px solid #cddaf1; position: relative; display: flex; flex-direction: column;}
         .catalog-img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: #eaf0f9; display: block; border-bottom: 1px solid #eee;}
@@ -48,7 +59,10 @@
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back { width: 100%; backface-visibility: hidden; border-radius: 12px; background: white; overflow: hidden; display: flex; flex-direction: column; }
         .flip-card-back { position: absolute; top: 0; left: 0; bottom: 0; right: 0; transform: rotateY(180deg); background: #eaf0f9; padding: 15px; overflow-y: auto; }
+        
+        /* Tombol Aksi di Kartu */
         .btn-delete-card { position: absolute; top: 5px; right: 5px; background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: 28px; height: 28px; color: #e74c3c; font-weight: 700; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 10; font-family: 'Satoshi', sans-serif;}
+        .btn-edit-card { position: absolute; top: 5px; right: 40px; background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: 28px; height: 28px; color: #5D83C5; font-weight: 700; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 10; font-family: 'Satoshi', sans-serif; font-size: 14px;}
 
         .resep-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #cddaf1; background: white; padding: 10px; border-radius: 8px;}
         .resep-item input { width: 80px; text-align: center; margin: 0 10px;}
@@ -58,6 +72,7 @@
         .result-total { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--primary); font-weight: 700; font-size: 16px; color: var(--secondary);}
         .text-rupiah { font-weight: 700; color: var(--secondary);}
         
+        /* DASHBOARD SUMMARY */
         .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;}
         .summary-card { background: white; padding: 12px; border-radius: 10px; border: 1px solid #cddaf1; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center;}
         .summary-title { font-size: 11px; color: #888; font-weight: 700; margin-bottom: 4px; text-transform: uppercase;}
@@ -107,15 +122,19 @@
     <!-- TAB 2: MASTER BUNGA -->
     <div id="tab-master" class="tab-content">
         <div class="section">
-            <div class="section-title">Buat Model Bunga Baru</div>
+            <div class="section-title">Form Model Bunga</div>
             <div class="input-group"><label>Nama Bunga</label><input type="text" id="masterNama"></div>
-            <div class="input-group"><label>Foto Bunga</label><input type="file" id="masterGambar" accept="image/*" style="padding: 5px; background: white;"></div>
+            <div class="input-group"><label>Foto Bunga <span style="font-weight:400; font-size:11px; color:#888;">(Biarkan kosong jika tidak ganti)</span></label><input type="file" id="masterGambar" accept="image/*" style="padding: 5px; background: white;"></div>
             <div style="margin-top: 15px;">
                 <label style="color: var(--secondary); font-weight: 700; margin-bottom: 10px; display: block;">Bahan yang Dipakai</label>
                 <div id="masterResepList"></div>
                 <div style="display: flex; gap: 10px; margin-top: 10px;"><select id="masterPilihBahan"></select><button class="btn-small" onclick="tambahKeMaster()">+ Tambah</button></div>
             </div>
-            <button class="btn-action" onclick="simpanMasterBunga()" style="margin-top: 20px;">Simpan Model Bunga</button>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn-action" id="btnSimpanMaster" onclick="simpanMasterBunga()" style="margin-top: 0;">Simpan Baru</button>
+                <button class="btn-action" id="btnBatalEdit" onclick="batalEditMaster()" style="margin-top: 0; background: #e74c3c; display: none;">Batal Edit</button>
+            </div>
         </div>
         <div class="section-title">Katalog Bunga Jadi</div>
         <div class="catalog-grid" id="daftarMasterBunga"></div>
@@ -148,7 +167,7 @@
         </div>
     </div>
 
-    <!-- TAB 4: RIWAYAT -->
+    <!-- TAB 4: RIWAYAT & DASHBOARD -->
     <div id="tab-riwayat" class="tab-content">
         <div class="section-title">Dashboard Keuangan</div>
         <select id="chartFilter" onchange="renderRiwayat()" style="margin-bottom: 15px; font-weight: 700; color: var(--secondary);">
@@ -178,12 +197,15 @@
     let masterBunga = JSON.parse(localStorage.getItem('zura_master')) || [];
     let riwayat = JSON.parse(localStorage.getItem('zura_riwayat')) || [];
     
-    let masterBuilderAktif = []; let kasirResepAktif = []; let kasirDieditManual = false; let financeChart = null; 
+    let masterBuilderAktif = []; 
+    let kasirResepAktif = []; 
+    let kasirDieditManual = false; 
+    let financeChart = null; 
+    let editMasterId = null; // Variabel baru untuk fitur Edit
 
-    // Pengaman Penyimpanan (Try-Catch)
     function simpanKeMemori(key, data) {
         try { localStorage.setItem(key, JSON.stringify(data)); } 
-        catch (e) { alert("❌ GAGAL MENYIMPAN!\nMemori penyimpanan HP mu sudah penuh. Tolong hapus beberapa transaksi atau barang lama."); return false; }
+        catch (e) { alert("❌ GAGAL MENYIMPAN!\nMemori penyimpanan HP mu sudah penuh."); return false; }
         return true;
     }
 
@@ -193,7 +215,6 @@
     function formatRupiah(angka) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka); }
     function parseDate(str) { let parts = str.split('/'); return new Date(parts[2], parts[1] - 1, parts[0]); }
 
-    // KOMPRESI EXTREME UNTUK HP (Ukuran 300px, Kualitas 0.5)
     function kompresGambar(file, callback) {
         if (!file) { callback(''); return; }
         const reader = new FileReader();
@@ -203,10 +224,8 @@
                 const canvas = document.createElement('canvas'); const SIZE = 300; 
                 canvas.width = SIZE; canvas.height = SIZE; const ctx = canvas.getContext('2d');
                 let ratio = img.width / img.height; let sx = 0, sy = 0, sw = img.width, sh = img.height;
-                if (ratio > 1) { sw = img.height; sx = (img.width - img.height) / 2; } 
-                else { sh = img.width; sy = (img.height - img.width) / 2; }
-                ctx.fillStyle = '#fff'; ctx.fillRect(0,0,SIZE,SIZE);
-                ctx.drawImage(img, sx, sy, sw, sh, 0, 0, SIZE, SIZE); 
+                if (ratio > 1) { sw = img.height; sx = (img.width - img.height) / 2; } else { sh = img.width; sy = (img.height - img.width) / 2; }
+                ctx.fillStyle = '#fff'; ctx.fillRect(0,0,SIZE,SIZE); ctx.drawImage(img, sx, sy, sw, sh, 0, 0, SIZE, SIZE); 
                 callback(canvas.toDataURL('image/jpeg', 0.5));
             }
             img.src = e.target.result;
@@ -219,7 +238,7 @@
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
         document.getElementById('tab-' + idTab).classList.add('active'); event.target.classList.add('active');
         if(idTab === 'gudang') renderGudang();
-        if(idTab === 'master') { if(masterBuilderAktif.length === 0) initMasterBuilder(); renderMaster(); }
+        if(idTab === 'master') { if(masterBuilderAktif.length === 0 && editMasterId === null) initMasterBuilder(); renderMaster(); }
         if(idTab === 'kasir') { if(kasirResepAktif.length === 0) muatResepKeKasir(); renderKasir(); }
         if(idTab === 'riwayat') renderRiwayat();
     }
@@ -254,8 +273,7 @@
         if(nama === '' || beli === 0 || qtyBeli === 0) { alert('Data bahan tidak valid!'); return; }
 
         kompresGambar(fileInput, function(gambarBase64) {
-            let existing = gudang.find(g => g.nama.toLowerCase() === nama.toLowerCase());
-            let tempGudang = [...gudang];
+            let existing = gudang.find(g => g.nama.toLowerCase() === nama.toLowerCase()); let tempGudang = [...gudang];
             if(existing) {
                 existing.stok += qtyBeli; existing.beli = beli; existing.qtyBeli = qtyBeli; existing.isDefault = isDefault;
                 if(document.getElementById('baruSatuan').value !== '') existing.satuan = satuan;
@@ -266,7 +284,7 @@
                 document.getElementById('baruNama').value = ''; document.getElementById('baruHarga').value = '';
                 document.getElementById('baruQty').value = ''; document.getElementById('baruSatuan').value = ''; document.getElementById('baruGambar').value = '';
                 renderGudang();
-            } else { gudang = tempGudang; } // Rollback jika error
+            } else { gudang = tempGudang; } 
         });
     }
 
@@ -276,6 +294,15 @@
     function initMasterBuilder() { masterBuilderAktif = []; gudang.forEach(g => { if(g.isDefault) masterBuilderAktif.push({ idBarang: g.id, qty: '' }); }); }
 
     function renderMaster() {
+        // Kontrol Tombol Edit
+        if (editMasterId !== null) {
+            document.getElementById('btnSimpanMaster').innerText = "Update Model";
+            document.getElementById('btnBatalEdit').style.display = "block";
+        } else {
+            document.getElementById('btnSimpanMaster').innerText = "Simpan Baru";
+            document.getElementById('btnBatalEdit').style.display = "none";
+        }
+
         let html = ''; let selectBungaHtml = '<option value="">-- Buat Custom --</option>';
         masterBunga.forEach((bunga, index) => {
             selectBungaHtml += `<option value="${bunga.id}">${bunga.namaBunga}</option>`;
@@ -289,6 +316,9 @@
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
                             <button class="btn-delete-card" onclick="event.stopPropagation(); hapusMasterBunga(${index})">×</button>
+                            <!-- Tombol Edit Pensil -->
+                            <button class="btn-edit-card" onclick="event.stopPropagation(); editMasterBunga(${bunga.id})">✎</button>
+                            
                             <img src="${bunga.gambar || defaultBungaImg}" class="catalog-img">
                             <div class="catalog-info">
                                 <div class="catalog-name">${bunga.namaBunga}</div>
@@ -323,20 +353,59 @@
     function updateQtyMaster(idBarang, val) { let obj = masterBuilderAktif.find(m => m.idBarang == idBarang); if(obj) obj.qty = val; }
     function hapusBahanMaster(idBarang) { masterBuilderAktif = masterBuilderAktif.filter(m => m.idBarang != idBarang); renderMaster(); }
 
+    // FITUR EDIT MODEL BUNGA
+    function editMasterBunga(id) {
+        let bunga = masterBunga.find(m => m.id === id);
+        if(!bunga) return;
+        editMasterId = id;
+        document.getElementById('masterNama').value = bunga.namaBunga;
+        
+        // Memuat ulang resep lama ke form aktif
+        masterBuilderAktif = [];
+        bunga.resep.forEach(r => { masterBuilderAktif.push({ idBarang: r.idBarang, qty: r.qty }); });
+        
+        renderMaster();
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Gulir otomatis ke form atas
+    }
+
+    function batalEditMaster() {
+        editMasterId = null;
+        document.getElementById('masterNama').value = ''; document.getElementById('masterGambar').value = '';
+        initMasterBuilder(); renderMaster();
+    }
+
     function simpanMasterBunga() {
         let namaBunga = document.getElementById('masterNama').value; let fileInput = document.getElementById('masterGambar').files[0];
         let resepBersih = []; masterBuilderAktif.forEach(item => { let numQty = parseDesimal(item.qty); if(numQty > 0) resepBersih.push({ idBarang: item.idBarang, qty: numQty }); });
         if(namaBunga === '' || resepBersih.length === 0) { alert('Nama dan resep harus diisi!'); return; }
 
-        kompresGambar(fileInput, function(gambarBase64) {
+        let prosesSimpan = function(gambarBase64) {
             let tempMaster = [...masterBunga];
-            masterBunga.push({ id: Date.now(), namaBunga: namaBunga, resep: resepBersih, gambar: gambarBase64 || defaultBungaImg });
+            
+            if (editMasterId !== null) {
+                // Update Template Lama
+                let indexEdit = masterBunga.findIndex(m => m.id === editMasterId);
+                if(indexEdit !== -1) {
+                    masterBunga[indexEdit].namaBunga = namaBunga;
+                    masterBunga[indexEdit].resep = resepBersih;
+                    if(gambarBase64 !== '') masterBunga[indexEdit].gambar = gambarBase64; // Ganti gambar jika upload baru
+                }
+                editMasterId = null; 
+            } else {
+                // Buat Template Baru
+                masterBunga.push({ id: Date.now(), namaBunga: namaBunga, resep: resepBersih, gambar: gambarBase64 || defaultBungaImg });
+            }
+
             if(simpanKeMemori('zura_master', masterBunga)) {
                 document.getElementById('masterNama').value = ''; document.getElementById('masterGambar').value = '';
                 initMasterBuilder(); renderMaster();
             } else { masterBunga = tempMaster; }
-        });
+        };
+
+        if (fileInput) { kompresGambar(fileInput, prosesSimpan); } 
+        else { prosesSimpan(''); } // Tetap simpan jika foto tidak diganti
     }
+
     function hapusMasterBunga(index) { if(confirm('Hapus template ini?')) { masterBunga.splice(index, 1); simpanKeMemori('zura_master', masterBunga); renderMaster(); } }
 
     // --- KASIR ---
@@ -382,7 +451,7 @@
         let pemesan = document.getElementById('kasirPemesan').value || 'Pelanggan Umum'; let selectBunga = document.getElementById('kasirPilihBunga');
         let namaProject = selectBunga.value !== "" ? selectBunga.options[selectBunga.selectedIndex].text : "Custom/Lainnya";
 
-        let bahanTerpakai = []; let totalModal = 0; let tempGudang = JSON.parse(JSON.stringify(gudang)); // Buat backup
+        let bahanTerpakai = []; let totalModal = 0; let tempGudang = JSON.parse(JSON.stringify(gudang)); 
         kasirResepAktif.forEach(item => {
             let numQty = parseDesimal(item.qty);
             if(numQty > 0) {
@@ -403,10 +472,7 @@
 
         if(simpanKeMemori('zura_riwayat', riwayat) && simpanKeMemori('zura_gudang', gudang)) {
             document.getElementById('kasirPemesan').value = ''; muatResepKeKasir(); bukaTab('riwayat');
-        } else {
-            // Rollback jika memori penuh
-            riwayat = tempRiwayat; gudang = tempGudang;
-        }
+        } else { riwayat = tempRiwayat; gudang = tempGudang; }
     }
 
     // --- DASHBOARD & RIWAYAT ---
@@ -483,7 +549,6 @@
     }
     function hapusSemuaRiwayat() { if(confirm('Hapus SEMUA riwayat transaksi?')) { riwayat = []; simpanKeMemori('zura_riwayat', riwayat); renderRiwayat(); } }
 
-    // Memanggil Service Worker untuk PWA Download & Offline Mode
     if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW Gagal:', err)); }); }
 
     renderGudang(); renderRiwayat();
